@@ -1,0 +1,120 @@
+:root {
+      --bg-light: #fef6fb;
+      --text-light: #333;
+      --bg-dark: #1e1e1e;
+      --text-dark: #f1f1f1;
+      --card-light: #fce4ec;
+      --card-dark: #333;
+      --accent: #f8bbd0;
+    }
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      transition: background-color 0.3s, color 0.3s;
+    }
+    body.dark {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+    .container {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .title-bar {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .theme-toggle {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      background-color: var(--accent);
+      border: none;
+      cursor: pointer;
+    }
+    .dashboard {
+      display: flex;
+      gap: 2rem;
+    }
+    .card {
+      background-color: var(--card-light);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      width: 150px;
+      cursor: pointer;
+      transition: transform 0.2s ease, background-color 0.3s;
+    }
+    body.dark .card {
+      background-color: var(--card-dark);
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    .translate-section, .phrases-section {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+    textarea {
+      width: 300px;
+      height: 100px;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      resize: none;
+    }
+    select, button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      border: none;
+      background-color: var(--accent);
+      cursor: pointer;
+    }
+    .phrase-list {
+      margin-top: 2rem;
+    }
+    .landing {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      background-color: var(--bg-light);
+      transition: background-color 0.3s;
+    }
+    body.dark .landing {
+      background-color: var(--bg-dark);
+    }
+    .landing h1 {
+      font-size: 3rem;
+    }
+    .landing button {
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      background-color: var(--accent);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    #title {
+    font-family: "Gloock", serif;
+    font-weight: 400;
+    font-style: normal;
+    }
