@@ -113,8 +113,52 @@
       cursor: pointer;
     }
 
-    #title {
+    button {
+  color: inherit;
+}
+
+
+    .title {
     font-family: "Gloock", serif;
     font-weight: 400;
     font-style: normal;
     }
+
+    @media (max-width: 600px) {
+  .dashboard {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .card {
+    width: 80%;
+  }
+
+  textarea {
+    width: 90%;
+  }
+
+  select, button {
+    width: 90%;
+  }
+
+  .theme-toggle {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    background-color: var(--accent);
+    border: none;
+    cursor: pointer;
+    max-width: 150px;
+    width: auto;
+  }
+
+  .translate-section, .phrases-section {
+    padding: 1rem;
+  }
+}
