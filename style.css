@@ -1,164 +1,144 @@
-:root {
-      --bg-light: #fef6fb;
-      --text-light: #333;
-      --bg-dark: #1e1e1e;
-      --text-dark: #f1f1f1;
-      --card-light: #fce4ec;
-      --card-dark: #333;
-      --accent: #f8bbd0;
-    }
-    body {
-      margin: 0;
-      font-family: sans-serif;
-      background-color: var(--bg-light);
-      color: var(--text-light);
-      transition: background-color 0.3s, color 0.3s;
-    }
-    body.dark {
-      background-color: var(--bg-dark);
-      color: var(--text-dark);
-    }
-    .container {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
-    .title-bar {
-      position: absolute;
-      top: 1rem;
-      left: 1rem;
-      font-size: 1.5rem;
-      font-weight: bold;
-    }
-    .theme-toggle {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      background-color: var(--accent);
-      border: none;
-      cursor: pointer;
-    }
-    .dashboard {
-      display: flex;
-      gap: 2rem;
-    }
-    .card {
-      background-color: var(--card-light);
-      border-radius: 16px;
-      padding: 2rem;
-      text-align: center;
-      width: 150px;
-      cursor: pointer;
-      transition: transform 0.2s ease, background-color 0.3s;
-    }
-    body.dark .card {
-      background-color: var(--card-dark);
-    }
-    .card:hover {
-      transform: scale(1.05);
-    }
-    .translate-section, .phrases-section {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      padding: 2rem;
-    }
-    textarea {
-      width: 300px;
-      height: 100px;
-      padding: 1rem;
-      margin: 1rem 0;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      resize: none;
-    }
-    select, button {
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      border: none;
-      background-color: var(--accent);
-      cursor: pointer;
-    }
-    .phrase-list {
-      margin-top: 2rem;
-    }
-    .landing {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
-      background-color: var(--bg-light);
-      transition: background-color 0.3s;
-    }
-    body.dark .landing {
-      background-color: var(--bg-dark);
-    }
-    .landing h1 {
-      font-size: 3rem;
-    }
-    .landing button {
-      margin-top: 2rem;
-      padding: 1rem 2rem;
-      font-size: 1rem;
-      background-color: var(--accent);
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-    }
+/* styles.css */
 
-    button {
-  color: inherit;
+:root {
+  --background: #fefefe;
+  --text: #333;
+  --card-bg: #fff;
+  --accent: #aaccee;
+  --button-bg: #cde;
 }
 
+body.dark {
+  --background: #1e1e1e;
+  --text: #fefefe;
+  --card-bg: #2e2e2e;
+  --accent: #88aacc;
+  --button-bg: #3a3f47; /* Subtle, clean dark button */
+}
 
-    .title {
-    font-family: "Gloock", serif;
-    font-weight: 400;
-    font-style: normal;
-    }
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--background);
+  color: var(--text);
+  transition: background 0.3s, color 0.3s;
+}
 
-    @media (max-width: 600px) {
+h1, h3 {
+  margin: 0.5em 0;
+}
+
+/* Landing Page */
+.landing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  background-color: var(--background);
+  padding: 2rem;
+}
+
+.landing select, .landing button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--button-bg);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.landing select{
+    width: 180px;;
+}
+
+.titles{
+  font-family: "Gloock", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Main Dashboard */
+.container {
+  display: none;
+  padding: 1rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-family: "Gloock", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.theme-toggle {
+  padding: 0.5rem 0.75rem;
+  background-color: var(--accent);
+  color: var(--text);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, auto));
+  column-gap: 1%;
+  row-gap: 10%;
+}
+
+.card {
+  background-color: var(--card-bg);
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+input, textarea, select {
+  width: 95%;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: var(--background);
+  color: var(--text);
+}
+
+button {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--accent);
+  color: var(--text);
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+@media (max-width: 599px) {
   .dashboard {
-    display: flex;
-    gap: 2rem;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
-  .card {
-    width: 80%;
-  }
-
-  textarea {
-    width: 90%;
-  }
-
-  select, button {
-    width: 90%;
-  }
-
-  .theme-toggle {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    background-color: var(--accent);
-    border: none;
-    cursor: pointer;
-    max-width: 150px;
-    width: auto;
-  }
-
-  .translate-section, .phrases-section {
-    padding: 1rem;
+    grid-template-columns: 1fr;
   }
 }
