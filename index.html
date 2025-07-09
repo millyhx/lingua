@@ -50,7 +50,8 @@
         <option value="turkey">Turkey</option>
       </select>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
       <div class="card bg-base-200 p-4 text-center flex items-center justify-center">
         <div id="time" class="text-3xl font-mono w-full text-center"></div>
       </div>
@@ -58,20 +59,24 @@
         <h3 class="text-xl font-semibold">Weather</h3>
         <div id="weather" class="text-lg mt-2">Loading...</div>
       </div>
-      <div class="card bg-base-200 p-4">
-        <h3 class="text-xl font-semibold">Common Phrases</h3>
-        <ul id="phrases" class="list-disc ml-4 mt-2"></ul>
-      </div>
-      <div class="card bg-base-200 p-4">
-        <h3 class="text-xl font-semibold">Currency Info</h3>
-        <div id="currencyInfo" class="text-lg mt-2"></div>
-      </div>
-      <div class="card bg-secondary text-white p-4 text-center cursor-pointer" onclick="openModal('translateModal')">
-        <div class="text-lg py-6">🈯 Translate</div>
-      </div>
-      <div class="card bg-accent text-white p-4 text-center cursor-pointer" onclick="openModal('currencyModal')">
-        <div class="text-lg py-6">💱 Currency</div>
-      </div>
+    </div>
+
+    <div class="card bg-base-200 p-4 mb-4">
+      <h3 class="text-xl font-semibold">Common Phrases</h3>
+      <ul id="phrases" class="list-disc ml-4 mt-2"></ul>
+    </div>
+
+    <div class="card bg-secondary text-white p-4 text-center cursor-pointer mb-4" onclick="openModal('translateModal')">
+      <div class="text-lg py-6">🈯 Translate</div>
+    </div>
+
+    <div class="card bg-base-200 p-4 mb-4">
+      <h3 class="text-xl font-semibold">Currency Info</h3>
+      <div id="currencyInfo" class="text-lg mt-2"></div>
+    </div>
+
+    <div class="card bg-accent text-white p-4 text-center cursor-pointer" onclick="openModal('currencyModal')">
+      <div class="text-lg py-6">💱 Currency</div>
     </div>
   </div>
 
@@ -92,8 +97,20 @@
       <button onclick="closeModal('currencyModal')" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
       <h3 class="font-bold text-lg mb-2">Currency Converter</h3>
       <div class="grid grid-cols-2 gap-2 mb-2">
-        <select id="fromCurrency" class="select select-bordered w-full"></select>
-        <select id="toCurrency" class="select select-bordered w-full"></select>
+        <select id="fromCurrency" class="select select-bordered w-full">
+          <option value="HUF">Hungarian Forint (HUF)</option>
+          <option value="TRY">Turkish Lira (TRY)</option>
+          <option value="USD">US Dollar (USD)</option>
+          <option value="EUR">Euro (EUR)</option>
+          <option value="GBP">British Pound (GBP)</option>
+        </select>
+        <select id="toCurrency" class="select select-bordered w-full">
+          <option value="USD">US Dollar (USD)</option>
+          <option value="HUF">Hungarian Forint (HUF)</option>
+          <option value="TRY">Turkish Lira (TRY)</option>
+          <option value="EUR">Euro (EUR)</option>
+          <option value="GBP">British Pound (GBP)</option>
+        </select>
       </div>
       <input id="amount" type="number" placeholder="Amount" class="input input-bordered w-full mb-2" />
       <button onclick="convertCurrency()" type="button" class="btn btn-primary w-full">Convert</button>
@@ -103,14 +120,6 @@
 
   <script>
     let selectedCountry = '';
-
-    const currencyOptions = {
-      HUF: 'Hungarian Forint (HUF)',
-      TRY: 'Turkish Lira (TRY)',
-      USD: 'US Dollar (USD)',
-      EUR: 'Euro (EUR)',
-      GBP: 'British Pound (GBP)'
-    };
 
     const commonPhrases = {
       hungary: ['Hello - Szia', 'Thank you - Köszönöm', 'Goodbye - Viszlát'],
@@ -126,28 +135,6 @@
       hungary: 'Hungarian Forint (HUF)',
       turkey: 'Turkish Lira (TRY)'
     };
-
-    function populateCurrencyDropdowns() {
-      const from = document.getElementById('fromCurrency');
-      const to = document.getElementById('toCurrency');
-      from.innerHTML = '';
-      to.innerHTML = '';
-      Object.keys(currencyOptions).forEach(code => {
-        const option1 = document.createElement('option');
-        option1.value = code;
-        option1.textContent = currencyOptions[code];
-        const option2 = option1.cloneNode(true);
-        from.appendChild(option1);
-        to.appendChild(option2);
-      });
-    }
-
-    function autoSelectCurrency() {
-      const from = document.getElementById('fromCurrency');
-      const to = document.getElementById('toCurrency');
-      from.value = selectedCountry === 'hungary' ? 'HUF' : 'TRY';
-      to.value = 'USD';
-    }
 
     function selectCountry(country) {
       selectedCountry = country;
@@ -168,8 +155,6 @@
       document.getElementById('currencyInfo').textContent = currencies[selectedCountry];
       updateTime();
       loadWeather();
-      populateCurrencyDropdowns();
-      autoSelectCurrency();
     }
 
     function updateTime() {
@@ -195,11 +180,6 @@
       }
     }
 
-    function translateText() {
-      const text = document.getElementById('translateInput').value;
-      document.getElementById('translationResult').textContent = `"${text}" translated in ${selectedCountry}`;
-    }
-
     async function convertCurrency() {
       const amount = parseFloat(document.getElementById('amount').value);
       const from = document.getElementById('fromCurrency').value;
@@ -208,16 +188,16 @@
       if (isNaN(amount) || !from || !to) return;
 
       try {
-        const response = await fetch(`https://api.exchangerate.host/convert?from=${from}&to=${to}&amount=${amount}`);
+        const response = await fetch(`https://api.exchangerate.host/convert?from=${from}&to=${to}&amount=${amount}&places=2`);
         const data = await response.json();
 
         if (data.result !== undefined) {
-          document.getElementById('currencyResult').textContent = `${amount} ${from} ≈ ${data.result.toFixed(2)} ${to}`;
+          document.getElementById('currencyResult').textContent = `${amount} ${from} ≈ ${data.result} ${to}`;
         } else {
-          document.getElementById('currencyResult').textContent = 'Conversion failed.';
+          document.getElementById('currencyResult').textContent = 'Conversion failed: invalid response';
         }
       } catch (error) {
-        document.getElementById('currencyResult').textContent = 'Error fetching conversion data.';
+        document.getElementById('currencyResult').textContent = 'Conversion error: network issue';
       }
     }
 
