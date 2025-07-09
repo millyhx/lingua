@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lingua</title>
   <link href="https://fonts.googleapis.com/css2?family=Tinos:wght@400;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com">
+  <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
@@ -19,16 +19,29 @@
       plugins: [
         function ({ addBase, theme }) {
           addBase({
-            body: { backgroundColor: theme('colors.gray.900'), color: theme('colors.white') }
+            body: {
+              backgroundColor: theme('colors.gray.900'),
+              color: theme('colors.white')
+            },
+            input: { color: theme('colors.white') },
+            select: { color: theme('colors.white') },
+            textarea: { color: theme('colors.white') },
+            button: { color: theme('colors.white') }
           });
         }
       ]
     }
   </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
   <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.0/dist/full.css" rel="stylesheet" />
   <style>
     * {
       color: white !important;
+    }
+
+    .font-tinos {
+      font-family: 'Tinos', serif !important;
     }
   </style>
 </head>
@@ -107,7 +120,7 @@
 
     <!-- Language Section -->
     <div class="space-y-4">
-      <h3 class="text-2xl font-bold">Language Tools</h3>
+      <h3 class="text-2xl font-bold">Language</h3>
       <div class="card bg-gray-800 p-4">
         <h4 class="text-xl font-semibold">Common Phrases</h4>
         <ul id="phrases" class="list-disc ml-4 mt-2"></ul>
@@ -118,7 +131,7 @@
     <div class="space-y-4">
       <h3 class="text-2xl font-bold">Currency</h3>
       <div class="card bg-gray-800 p-4">
-        <h4 class="text-xl font-semibold">Currency Info</h4>
+        <h4 class="text-xl font-semibold">National Currency</h4>
         <div id="currencyInfo" class="text-lg mt-2"></div>
       </div>
     </div>
