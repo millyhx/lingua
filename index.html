@@ -6,8 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lingua</title>
   <link href="https://fonts.googleapis.com/css2?family=Tinos:wght@400;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
+  <script src="https://cdn.tailwindcss.com">
     tailwind.config = {
       darkMode: 'class',
       theme: {
@@ -31,58 +30,98 @@
 
 <body class="dark">
   <!-- Landing Page -->
-  <div id="landing" class="min-h-screen flex flex-col items-center justify-center text-center">
-    <h1 class="text-5xl font-bold mb-4 tracking-wide font-tinos">Lingua</h1>
-    <p class="mb-6 text-lg text-gray-300 max-w-md">A sleek language dashboard to help you stay connected wherever you go.</p>
-    <p class="mb-4 text-lg">Select a country to begin:</p>
-    <div class="flex space-x-4">
-      <button onclick="selectCountry('hungary')" class="btn btn-primary">Hungary</button>
-      <button onclick="selectCountry('turkey')" class="btn btn-primary">Turkey</button>
+  <div id="landing" class="relative min-h-screen flex flex-col items-center justify-center text-center">
+    <img src="images/map.jpg" alt="Background" class="absolute inset-0 w-full h-full object-cover z-0">
+    <div class="absolute inset-0 bg-blue-900 bg-opacity-80 z-10"></div>
+    <div class="relative z-20">
+      <h1 class="text-5xl font-bold mb-4 tracking-wide font-tinos" style="color: white;">Lingua</h1>
+      <p class="mb-6 text-lg text-white max-w-md">A sleek language dashboard to help you stay connected wherever you go.</p>
+      <p class="mb-4 text-lg text-white">Select a country to begin:</p>
+      <div class="flex flex-row items-center justify-center gap-4 mt-4">
+        <button onclick="selectCountry('hungary')" class="bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded flex items-center gap-2">
+          <img src="https://flagcdn.com/w40/hu.png" alt="Hungary" class="w-5 h-5"> Hungary
+        </button>
+        <button onclick="selectCountry('turkey')" class="bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded flex items-center gap-2">
+          <img src="https://flagcdn.com/w40/tr.png" alt="Turkey" class="w-5 h-5"> Turkey
+        </button>
+      </div>
     </div>
   </div>
 
   <!-- Dashboard -->
-  <div id="dashboard" class="hidden p-4">
-    <div class="flex justify-between items-center mb-4">
-      <h2 class="text-3xl font-bold tracking-wide font-tinos">Lingua</h2>
+  <div id="dashboard" class="hidden p-4 space-y-6 bg-[hsl(var(--b1)_/_var(--tw-bg-opacity,1))]">
+    <div class="flex justify-between items-center">
+    <h2 
+      class="text-3xl font-bold tracking-wide font-tinos cursor-pointer hover:underline" 
+      onclick="goToLanding()">
+      Lingua Dashboard
+    </h2>
       <select id="countrySelector" class="select select-bordered w-40" onchange="changeCountry(this.value)">
         <option value="hungary">Hungary</option>
         <option value="turkey">Turkey</option>
       </select>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-      <div class="card bg-base-200 p-4 text-center flex items-center justify-center">
-        <div id="time" class="text-3xl font-mono w-full text-center"></div>
+    <!-- Action Buttons -->
+    <div class="flex justify-center gap-4">
+      <!-- Translate Button -->
+      <div class="card bg-blue-600 hover:bg-blue-700 text-white p-4 text-center cursor-pointer w-24 h-24 flex flex-col items-center justify-center" onclick="openModal('translateModal')">
+        <div class="text-3xl">🈯</div>
+        <span class="text-sm mt-1">Translate</span>
       </div>
-      <div class="card bg-base-200 p-4">
-        <h3 class="text-xl font-semibold">Weather</h3>
-        <div id="weather" class="text-lg mt-2">Loading...</div>
+
+      <!-- Currency Button -->
+      <div class="card bg-pink-600 hover:bg-pink-700 text-white p-4 text-center cursor-pointer w-24 h-24 flex flex-col items-center justify-center" onclick="openModal('currencyModal')">
+        <div class="text-3xl">💱</div>
+        <span class="text-sm mt-1">Convert</span>
+      </div>
+
+      <!-- Emergency Button -->
+      <div class="card bg-red-600 hover:bg-red-700 text-white p-4 text-center cursor-pointer w-24 h-24 flex flex-col items-center justify-center" onclick="openModal('emergencyModal')">
+        <div class="text-3xl">⚠️</div>
+        <span class="text-sm mt-1">Emergency</span>
       </div>
     </div>
 
-    <div class="card bg-base-200 p-4 mb-4">
-      <h3 class="text-xl font-semibold">Common Phrases</h3>
-      <ul id="phrases" class="list-disc ml-4 mt-2"></ul>
+
+    <!-- Time & Weather -->
+    <div class="space-y-4">
+      <h3 class="text-2xl font-bold">Time & Weather</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="card bg-gray-800 p-4">
+          <h4 class="text-xl font-semibold mb-2">Local Time</h4>
+          <div id="time" class="text-3xl font-mono"></div>
+          <div id="timeDiff" class="text-sm text-gray-400 mt-1"></div>
+        </div>
+        <div class="card bg-gray-800 p-4">
+          <h4 class="text-xl font-semibold mb-2">Weather</h4>
+          <div id="weather" class="text-lg mt-2">Loading...</div>
+        </div>
+      </div>
     </div>
 
-    <div class="card bg-secondary text-white p-4 text-center cursor-pointer mb-4" onclick="openModal('translateModal')">
-      <div class="text-lg py-6">🈯 Translate</div>
+    <!-- Language Section -->
+    <div class="space-y-4">
+      <h3 class="text-2xl font-bold">Language Tools</h3>
+      <div class="card bg-gray-800 p-4">
+        <h4 class="text-xl font-semibold">Common Phrases</h4>
+        <ul id="phrases" class="list-disc ml-4 mt-2"></ul>
+      </div>
     </div>
 
-    <div class="card bg-base-200 p-4 mb-4">
-      <h3 class="text-xl font-semibold">National Currency</h3>
-      <div id="currencyInfo" class="text-lg mt-2"></div>
-    </div>
-
-    <div class="card bg-accent text-white p-4 text-center cursor-pointer" onclick="openModal('currencyModal')">
-      <div class="text-lg py-6">💱 Currency</div>
+    <!-- Currency Section -->
+    <div class="space-y-4">
+      <h3 class="text-2xl font-bold">Currency</h3>
+      <div class="card bg-gray-800 p-4">
+        <h4 class="text-xl font-semibold">Currency Info</h4>
+        <div id="currencyInfo" class="text-lg mt-2"></div>
+      </div>
     </div>
   </div>
 
   <!-- Translate Modal -->
   <dialog id="translateModal" class="modal">
-    <form method="dialog" class="modal-box bg-base-200">
+    <form method="dialog" class="modal-box bg-[hsl(var(--b1)_/_var(--tw-bg-opacity,1))]">
       <button onclick="closeModal('translateModal')" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
       <h3 class="font-bold text-lg mb-2">Translate</h3>
       <input id="translateInput" type="text" placeholder="Enter text" class="input input-bordered w-full mb-2" />
@@ -91,9 +130,18 @@
     </form>
   </dialog>
 
+  <!-- Emergency Modal -->
+  <dialog id="emergencyModal" class="modal">
+    <form method="dialog" class="modal-box bg-[hsl(var(--b1)_/_var(--tw-bg-opacity,1))]">
+      <button onclick="closeModal('emergencyModal')" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+      <h3 class="font-bold text-lg mb-2">Emergency Contacts</h3>
+      <ul class="list-disc pl-4" id="emergencyContacts"></ul>
+    </form>
+  </dialog>
+
   <!-- Currency Modal -->
   <dialog id="currencyModal" class="modal">
-    <form method="dialog" class="modal-box bg-base-200">
+    <form method="dialog" class="modal-box bg-[hsl(var(--b1)_/_var(--tw-bg-opacity,1))]">
       <button onclick="closeModal('currencyModal')" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
       <h3 class="font-bold text-lg mb-2">Currency Converter</h3>
       <div class="grid grid-cols-2 gap-2 mb-2">
@@ -145,11 +193,11 @@
     }
 
     function changeCountry(country) {
-  selectedCountry = country;
-  document.getElementById('countrySelector').value = country;
-  loadDashboard();
-  showPopup(`Country changed to ${country.charAt(0).toUpperCase() + country.slice(1)}`);
-}
+      selectedCountry = country;
+      document.getElementById('countrySelector').value = country;
+      loadDashboard();
+      showPopup(`Country changed to ${country.charAt(0).toUpperCase() + country.slice(1)}`);
+    }
 
     function loadDashboard() {
       document.getElementById('phrases').innerHTML = commonPhrases[selectedCountry]
@@ -160,19 +208,26 @@
     }
 
     function updateTime() {
-      const now = new Date().toLocaleTimeString('en-US', {
-        timeZone: selectedCountry === 'hungary' ? 'Europe/Budapest' : 'Europe/Istanbul',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
+      const localNow = new Date();
+      const intlNow = new Date().toLocaleString('en-US', {
+        timeZone: selectedCountry === 'hungary' ? 'Europe/Budapest' : 'Europe/Istanbul'
       });
-      document.getElementById('time').textContent = now;
+      const targetTime = new Date(intlNow);
+      const diffMs = targetTime - localNow;
+      const diffHours = Math.round(diffMs / (1000 * 60 * 60));
+
+      const formatted = targetTime.toLocaleTimeString('en-US', {
+        hour: '2-digit', minute: '2-digit', second: '2-digit'
+      });
+      document.getElementById('time').textContent = formatted;
+      document.getElementById('timeDiff').textContent = `${diffHours >= 0 ? '+' : ''}${diffHours} hour(s) from your time`;
+
       setTimeout(updateTime, 1000);
     }
 
     async function loadWeather() {
       const city = weatherCities[selectedCountry];
-      const apiKey = 'f2ad63da9541413d85c192518250907'; // Replace with your WeatherAPI.com key
+      const apiKey = 'f2ad63da9541413d85c192518250907';
 
       try {
         const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`);
@@ -180,9 +235,9 @@
 
         if (data && data.current) {
           const condition = data.current.condition.text;
-const temp = data.current.temp_c;
-const icon = data.current.condition.icon;
-document.getElementById('weather').innerHTML = `<img src="https:${icon}" alt="weather icon" class="inline-block w-6 h-6 mr-2 align-middle" /> ${condition}, ${temp}°C`;
+          const temp = data.current.temp_c;
+          const icon = data.current.condition.icon;
+          document.getElementById('weather').innerHTML = `<img src="https:${icon}" alt="weather icon" class="inline-block w-15 h-15 mr-2 align-middle" /> ${condition}, ${temp}°C`;
         } else {
           document.getElementById('weather').textContent = 'Weather data unavailable';
         }
@@ -192,72 +247,57 @@ document.getElementById('weather').innerHTML = `<img src="https:${icon}" alt="we
       }
     }
 
-    async function convertCurrency() {
-      const amount = parseFloat(document.getElementById('amount').value);
-      const from = document.getElementById('fromCurrency').value;
-      const to = document.getElementById('toCurrency').value;
-
-      if (isNaN(amount) || !from || !to) return;
-
-      try {
-        const response = await fetch(`https://api.exchangerate.host/convert?from=${from}&to=${to}&amount=${amount}&places=2`);
-        const data = await response.json();
-
-        if (data.result !== undefined) {
-          document.getElementById('currencyResult').textContent = `${amount} ${from} ≈ ${data.result} ${to}`;
-        } else {
-          document.getElementById('currencyResult').textContent = 'Conversion failed: invalid response';
-        }
-      } catch (error) {
-        document.getElementById('currencyResult').textContent = 'Conversion error: network issue';
-      }
-    }
-
-    async function translateText() {
-      const input = document.getElementById('translateInput').value;
-      const resultEl = document.getElementById('translationResult');
-
-      if (!input.trim()) {
-        resultEl.textContent = 'Please enter some text.';
-        return;
-      }
-
-      const targetLang = selectedCountry === 'hungary' ? 'HU' : 'TR';
-      const encodedText = encodeURIComponent(input);
-
-      try {
-        const response = await fetch(`https://api.mymemory.translated.net/get?q=${encodedText}&langpair=en|${targetLang}`);
-        const data = await response.json();
-
-        if (data && data.responseData && data.responseData.translatedText) {
-          resultEl.textContent = `Translation: ${data.responseData.translatedText}`;
-        } else {
-          resultEl.textContent = 'Translation failed. Please try again.';
-        }
-      } catch (error) {
-        console.error('Translation error:', error);
-        resultEl.textContent = 'Translation failed. Please try again.';
-      }
-    }
-
     function openModal(id) {
       document.getElementById(id).showModal();
     }
 
     function closeModal(id) {
-  document.getElementById(id).close();
-}
+      document.getElementById(id).close();
+    }
 
-function showPopup(message) {
-  const popup = document.getElementById('popupMessage');
-  popup.textContent = message;
-  popup.classList.remove('hidden');
-  setTimeout(() => popup.classList.add('hidden'), 3000);
-}
+    function showPopup(message) {
+      const popup = document.getElementById('popupMessage');
+      popup.textContent = message;
+      popup.classList.remove('hidden');
+      setTimeout(() => popup.classList.add('hidden'), 3000);
+    }
+
+    const emergencyNumbers = {
+      hungary: [
+        '112 (General)',
+        '104 (Ambulance)',
+        '105 (Fire)',
+        '107 (Police)'
+      ],
+      turkey: [
+        '112 (General)',
+        '110 (Fire)',
+        '155 (Police)'
+      ]
+    };
+
+    function loadEmergencyContacts() {
+      const contacts = emergencyNumbers[selectedCountry] || [];
+      const list = contacts.map(item => `<li>${item}</li>`).join('');
+      document.getElementById('emergencyContacts').innerHTML = list;
+    }
+
+    const originalOpenModal = openModal;
+    openModal = function(id) {
+      if (id === 'emergencyModal') {
+        loadEmergencyContacts();
+      }
+      originalOpenModal(id);
+    };
+
+    function goToLanding() {
+      document.getElementById('dashboard').classList.add('hidden');
+      document.getElementById('landing').classList.remove('hidden');
+    }
+
   </script>
   <!-- Popup Notification -->
   <div id="popupMessage" class="fixed bottom-4 right-4 bg-green-600 text-white px-4 py-2 rounded shadow-md hidden z-50"></div>
-
 </body>
 
 </html>
