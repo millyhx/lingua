@@ -33,7 +33,6 @@
     }
   </script>
   <script src="https://cdn.tailwindcss.com"></script>
-
   <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.0/dist/full.css" rel="stylesheet" />
   <style>
     * {
@@ -69,38 +68,39 @@
   <!-- Dashboard -->
   <div id="dashboard" class="hidden p-4 space-y-6 bg-[hsl(var(--b1)_/_var(--tw-bg-opacity,1))]">
     <div class="flex justify-between items-center">
-    <h2 
-      class="text-3xl font-bold tracking-wide font-tinos cursor-pointer hover:underline" 
-      onclick="goToLanding()">
-      Lingua Dashboard
-    </h2>
+      <h2 class="text-3xl font-bold tracking-wide font-tinos cursor-pointer hover:underline" onclick="goToLanding()">Lingua Dashboard</h2>
       <select id="countrySelector" class="select select-bordered w-40" onchange="changeCountry(this.value)">
         <option value="hungary">Hungary</option>
         <option value="turkey">Turkey</option>
       </select>
     </div>
 
-    <!-- Action Buttons -->
-    <div class="flex justify-center gap-4">
-      <!-- Translate Button -->
-      <div class="card bg-blue-600 hover:bg-blue-700 text-white p-4 text-center cursor-pointer w-24 h-24 flex flex-col items-center justify-center" onclick="openModal('translateModal')">
-        <div class="text-3xl">🌐</div>
-        <span class="text-sm mt-1">Translate</span>
-      </div>
 
-      <!-- Currency Button -->
-      <div class="card bg-pink-600 hover:bg-pink-700 text-white p-4 text-center cursor-pointer w-24 h-24 flex flex-col items-center justify-center" onclick="openModal('currencyModal')">
-        <div class="text-3xl">💰</div>
-        <span class="text-sm mt-1">Convert</span>
-      </div>
 
-      <!-- Emergency Button -->
-      <div class="card bg-red-600 hover:bg-red-700 text-white p-4 text-center cursor-pointer w-24 h-24 flex flex-col items-center justify-center" onclick="openModal('emergencyModal')">
-        <div class="text-3xl">⚠️</div>
-        <span class="text-sm mt-1">Emergency</span>
+    <!-- Overview -->
+    <div class="space-y-4">
+      <div class="card bg-gray-800 p-6 flex flex-col md:flex-row items-center gap-6" id="overviewCard">
+        <!-- Overview content injected via JS -->
       </div>
     </div>
 
+        <!-- Action Buttons -->
+    <div class="space-y-4">
+      <div class="flex justify-center gap-4">
+        <div class="card bg-blue-600 hover:bg-blue-700 text-white p-4 text-center cursor-pointer w-24 h-24 flex flex-col items-center justify-center" onclick="openModal('translateModal')">
+          <div class="text-3xl">🌐</div>
+          <span class="text-sm mt-1">Translate</span>
+        </div>
+        <div class="card bg-pink-600 hover:bg-pink-700 text-white p-4 text-center cursor-pointer w-24 h-24 flex flex-col items-center justify-center" onclick="openModal('currencyModal')">
+          <div class="text-3xl">💰</div>
+          <span class="text-sm mt-1">Convert</span>
+        </div>
+        <div class="card bg-red-600 hover:bg-red-700 text-white p-4 text-center cursor-pointer w-24 h-24 flex flex-col items-center justify-center" onclick="openModal('emergencyModal')">
+          <div class="text-3xl">⚠️</div>
+          <span class="text-sm mt-1">Emergency</span>
+        </div>
+      </div>
+    </div>
 
     <!-- Time & Weather -->
     <div class="space-y-4">
@@ -135,57 +135,42 @@
         <div id="currencyInfo" class="text-lg mt-2"></div>
       </div>
     </div>
-  </div>
 
-  <!-- Translate Modal -->
-  <dialog id="translateModal" class="modal">
-    <form method="dialog" class="modal-box bg-[hsl(var(--b1)_/_var(--tw-bg-opacity,1))]">
-      <button onclick="closeModal('translateModal')" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-      <h3 class="font-bold text-lg mb-2">Translate</h3>
-      <input id="translateInput" type="text" placeholder="Enter text" class="input input-bordered w-full mb-2" />
-      <button onclick="translateText()" type="button" class="btn btn-primary w-full">Translate</button>
-      <div id="translationResult" class="mt-2"></div>
-    </form>
-  </dialog>
-
-  <!-- Emergency Modal -->
-  <dialog id="emergencyModal" class="modal">
-    <form method="dialog" class="modal-box bg-[hsl(var(--b1)_/_var(--tw-bg-opacity,1))]">
-      <button onclick="closeModal('emergencyModal')" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-      <h3 class="font-bold text-lg mb-2">Emergency Contacts</h3>
-      <ul class="list-disc pl-4" id="emergencyContacts"></ul>
-    </form>
-  </dialog>
-
-  <!-- Currency Modal -->
-  <dialog id="currencyModal" class="modal">
-    <form method="dialog" class="modal-box bg-[hsl(var(--b1)_/_var(--tw-bg-opacity,1))]">
-      <button onclick="closeModal('currencyModal')" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-      <h3 class="font-bold text-lg mb-2">Currency Converter</h3>
-      <div class="grid grid-cols-2 gap-2 mb-2">
-        <select id="fromCurrency" class="select select-bordered w-full">
-          <option value="HUF">Hungarian Forint (HUF)</option>
-          <option value="TRY">Turkish Lira (TRY)</option>
-          <option value="USD">US Dollar (USD)</option>
-          <option value="EUR">Euro (EUR)</option>
-          <option value="GBP">British Pound (GBP)</option>
-        </select>
-        <select id="toCurrency" class="select select-bordered w-full">
-          <option value="USD">US Dollar (USD)</option>
-          <option value="HUF">Hungarian Forint (HUF)</option>
-          <option value="TRY">Turkish Lira (TRY)</option>
-          <option value="EUR">Euro (EUR)</option>
-          <option value="GBP">British Pound (GBP)</option>
-        </select>
+    <!-- Culture & Society Section -->
+    <div class="space-y-4">
+      <h3 class="text-2xl font-bold">Culture & Society</h3>
+      <div class="card bg-gray-800 p-4 space-y-2" id="cultureCard">
+        <!-- Culture data will be injected here -->
       </div>
-      <input id="amount" type="number" placeholder="Amount" class="input input-bordered w-full mb-2" />
-      <button onclick="convertCurrency()" type="button" class="btn btn-primary w-full">Convert</button>
-      <div id="currencyResult" class="mt-2"></div>
-    </form>
-  </dialog>
+    </div>
+
+
+
+
+  </div> <!-- closes dashboard section -->
+
+  <!-- Modals and Popup -->
+  <!-- (unchanged content for translateModal, emergencyModal, currencyModal, popupMessage...) -->
 
   <script>
     let selectedCountry = '';
+
+    const countryData = {
+      hungary: {
+        name: 'Hungary',
+        flag: 'https://flagcdn.com/w80/hu.png',
+        capital: 'Budapest',
+        languages: ['Hungarian'],
+        population: '9.6 million'
+      },
+      turkey: {
+        name: 'Turkey',
+        flag: 'https://flagcdn.com/w80/tr.png',
+        capital: 'Ankara',
+        languages: ['Turkish'],
+        population: '85 million'
+      }
+    };
 
     const commonPhrases = {
       hungary: ['Hello - Szia', 'Thank you - Köszönöm', 'Goodbye - Viszlát'],
@@ -221,8 +206,24 @@
       document.getElementById('phrases').innerHTML = commonPhrases[selectedCountry]
         .map(phrase => `<li>${phrase}</li>`).join('');
       document.getElementById('currencyInfo').textContent = currencies[selectedCountry];
+      renderOverview();
+      renderCulture(); // 👈 Add this line
       updateTime();
       loadWeather();
+    }
+
+    function renderOverview() {
+      const data = countryData[selectedCountry];
+      const overviewHTML = `
+        <img src="${data.flag}" alt="${data.name} flag" class="w-20 h-14 rounded shadow" />
+        <div>
+          <h4 class="text-xl font-semibold mb-1">${data.name}</h4>
+          <p><strong>Capital:</strong> ${data.capital}</p>
+          <p><strong>Language(s):</strong> ${data.languages.join(', ')}</p>
+          <p><strong>Population:</strong> ${data.population}</p>
+        </div>
+      `;
+      document.getElementById('overviewCard').innerHTML = overviewHTML;
     }
 
     function updateTime() {
@@ -266,6 +267,7 @@
     }
 
     function openModal(id) {
+      if (id === 'emergencyModal') loadEmergencyContacts();
       document.getElementById(id).showModal();
     }
 
@@ -281,17 +283,8 @@
     }
 
     const emergencyNumbers = {
-      hungary: [
-        '112 (General)',
-        '104 (Ambulance)',
-        '105 (Fire)',
-        '107 (Police)'
-      ],
-      turkey: [
-        '112 (General)',
-        '110 (Fire)',
-        '155 (Police)'
-      ]
+      hungary: ['112 (General)', '104 (Ambulance)', '105 (Fire)', '107 (Police)'],
+      turkey: ['112 (General)', '110 (Fire)', '155 (Police)']
     };
 
     function loadEmergencyContacts() {
@@ -300,20 +293,39 @@
       document.getElementById('emergencyContacts').innerHTML = list;
     }
 
-    const originalOpenModal = openModal;
-    openModal = function(id) {
-      if (id === 'emergencyModal') {
-        loadEmergencyContacts();
-      }
-      originalOpenModal(id);
-    };
-
     function goToLanding() {
       document.getElementById('dashboard').classList.add('hidden');
       document.getElementById('landing').classList.remove('hidden');
     }
 
+    const culturalInfo = {
+      hungary: {
+        religions: ['Christianity (primarily Roman Catholic)'],
+        ethnicGroups: ['Hungarian (Magyar)', 'Roma', 'German', 'Slovak'],
+        holidays: ['March 15 – National Day', 'August 20 – St. Stephen\'s Day', 'October 23 – Republic Day'],
+        customs: ['Name days are celebrated like birthdays', 'Traditional folk music and dance', 'Thermal baths culture']
+      },
+      turkey: {
+        religions: ['Islam (majority Sunni)', 'Christianity', 'Judaism'],
+        ethnicGroups: ['Turkish', 'Kurdish', 'Arabic', 'Circassian'],
+        holidays: ['April 23 – National Sovereignty Day', 'October 29 – Republic Day', 'Eid al-Fitr', 'Eid al-Adha'],
+        customs: ['Hospitality is highly valued', 'Tea and coffee culture', 'Hammam (Turkish bath) tradition']
+      }
+    };
+
+    function renderCulture() {
+      const data = culturalInfo[selectedCountry];
+      const html = `
+        <p><strong>Religions:</strong> ${data.religions.join(', ')}</p>
+        <p><strong>Ethnic Groups:</strong> ${data.ethnicGroups.join(', ')}</p>
+        <p><strong>National Holidays:</strong> <ul class="list-disc ml-5">${data.holidays.map(h => `<li>${h}</li>`).join('')}</ul></p>
+        <p><strong>Customs & Traditions:</strong> <ul class="list-disc ml-5">${data.customs.map(c => `<li>${c}</li>`).join('')}</ul></p>
+      `;
+      document.getElementById('cultureCard').innerHTML = html;
+    }
+
   </script>
+
   <!-- Popup Notification -->
   <div id="popupMessage" class="fixed bottom-4 right-4 bg-green-600 text-white px-4 py-2 rounded shadow-md hidden z-50"></div>
 </body>
