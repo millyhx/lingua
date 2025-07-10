@@ -51,7 +51,7 @@
     <img src="images/map.jpg" alt="Background" class="absolute inset-0 w-full h-full object-cover z-0">
     <div class="absolute inset-0 bg-blue-900 bg-opacity-80 z-10"></div>
     <div class="relative z-20">
-      <h1 class="text-5xl font-bold mb-4 tracking-wide font-tinos" style="color: white;">Lingua</h1>
+      <h1 class="text-5xl font-bold mb-4 tracking-wide font-app">Lingua</h1>
       <p class="mb-6 text-lg text-white max-w-md">A sleek language dashboard to help you stay connected wherever you go.</p>
       <p class="mb-4 text-lg text-white">Select a country to begin:</p>
       <div class="flex flex-row items-center justify-center gap-4 mt-4">
@@ -68,19 +68,32 @@
   <!-- Dashboard -->
   <div id="dashboard" class="hidden p-4 space-y-6 bg-[hsl(var(--b1)_/_var(--tw-bg-opacity,1))]">
     <div class="flex justify-between items-center">
-      <h2 class="text-3xl font-bold tracking-wide font-tinos cursor-pointer hover:underline" onclick="goToLanding()">Lingua Dashboard</h2>
+      <h2 class="text-3xl font-bold tracking-wide font-app cursor-pointer" onclick="goToLanding()">Lingua Dashboard</h2>
       <select id="countrySelector" class="select select-bordered w-40" onchange="changeCountry(this.value)">
         <option value="hungary">Hungary</option>
         <option value="turkey">Turkey</option>
       </select>
     </div>
 
-
-
     <!-- Overview -->
     <div class="space-y-4">
       <div class="card bg-gray-800 p-6 flex flex-col md:flex-row items-center gap-6" id="overviewCard">
         <!-- Overview content injected via JS -->
+      </div>
+    </div>
+
+
+    <iframe src="https://www.clocklink.com/html5embed.php?clock=5024&timezone=Europe/Budapest&color=white&size=170" style="border:0;" width="170" height="170"></iframe>
+
+
+    <div class="grid grid-cols-2 gap-4">
+      <div class="bg-gray-800 rounded-2xl p-4 text-center">
+        <p class="text-sm text-gray-400">Retention</p>
+        <h3 class="text-2xl font-bold">13%</h3>
+      </div>
+      <div class="bg-gray-800 rounded-2xl p-4 text-center">
+        <p class="text-sm text-gray-400">Productivity</p>
+        <h3 class="text-2xl font-bold">45%</h3>
       </div>
     </div>
 
@@ -143,9 +156,6 @@
         <!-- Culture data will be injected here -->
       </div>
     </div>
-
-
-
 
   </div> <!-- closes dashboard section -->
 
@@ -308,12 +318,12 @@
     function renderOverview() {
       const data = countryData[selectedCountry];
       const overviewHTML = `
-        <img src="${data.flag}" alt="${data.name} flag" class="w-20 h-14 rounded shadow" />
-        <div>
-          <h4 class="text-xl font-semibold mb-1">${data.name}</h4>
-          <p><strong>Capital:</strong> ${data.capital}</p>
-          <p><strong>Language(s):</strong> ${data.languages.join(', ')}</p>
-          <p><strong>Population:</strong> ${data.population}</p>
+        <img src="${data.flag}" alt="${data.name} flag" class="w-16 h-10 mx-auto rounded shadow" />
+          <h4 class="text-xl font-bold">${data.name}</h4>
+          <div class="space-y-1 text-sm text-gray-300">
+            <p><span class="font-semibold text-white">Capital:</span> ${data.capital}</p>
+            <p><span class="font-semibold text-white">Language(s):</span> ${data.languages.join(', ')}</p>
+            <p><span class="font-semibold text-white">Population:</span>${data.population}</p>
         </div>
       `;
       document.getElementById('overviewCard').innerHTML = overviewHTML;
